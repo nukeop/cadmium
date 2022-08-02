@@ -21,7 +21,7 @@ jobs:
         with:
           toolchain: stable
       - run: cargo build --release --all-features
-      - run: mv target/release/cadmium target/release/cadmium-${{ matrix.os }}
+      - run: mv target/release/{cadmium,cadmium.exe} target/release/cadmium-${{ matrix.os }}
       - name: Create a release
         uses: softprops/action-gh-release@v1
         with:
