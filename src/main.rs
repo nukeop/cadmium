@@ -30,5 +30,6 @@ fn main() {
 
     let palette_file = args.palette.unwrap();
     let palette = Palette::from_file(palette_file.as_str());
+
     process_image(&input, &palette, &output);
 }

@@ -28,12 +28,16 @@ impl Palette {
 
         let hex_values = palette_colors
             .iter()
-            .map(|c| -> Rgb<u8> {
-                Rgb([
-                    u8::from_str_radix(&c[1..3], 16).unwrap(),
-                    u8::from_str_radix(&c[3..5], 16).unwrap(),
-                    u8::from_str_radix(&c[5..7], 16).unwrap(),
-                ])
+            .filter_map(|c| -> Option<Rgb<u8>> {
+                if c.len() == 0 || c.chars().nth(0).unwrap() == '/' {
+                    return None;
+                } else {
+                    return Some(Rgb([
+                        u8::from_str_radix(&c[1..3], 16).unwrap(),
+                        u8::from_str_radix(&c[3..5], 16).unwrap(),
+                        u8::from_str_radix(&c[5..7], 16).unwrap(),
+                    ]));
+                };
             })
             .collect();
 
