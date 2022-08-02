@@ -13,9 +13,9 @@ trait Color {
 
 impl Color for Rgb<u8> {
     fn distance(&self, other: &Self) -> f32 {
-        let r = self[0] as f32 - other[0] as f32;
-        let g = self[1] as f32 - other[1] as f32;
-        let b = self[2] as f32 - other[2] as f32;
+        let r = (self[0] >> 2 << 2) as f32 - other[0] as f32;
+        let g = (self[1] >> 2 << 2) as f32 - other[1] as f32;
+        let b = (self[2] >> 2 << 2) as f32 - other[2] as f32;
         (r * r + g * g + b * b).sqrt()
     }
 }
