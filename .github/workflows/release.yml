@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -21,10 +21,30 @@ jobs:
         with:
           toolchain: stable
       - run: cargo build --release --all-features
-      - run: mv target/release/{cadmium,cadmium.exe} ./cadmium-${{ matrix.os }}
+      - run: mv target/release/cadmium ./cadmium-${{ matrix.os }}
       - name: Create a release
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ steps.short-sha.outputs.sha }}
           tag_name: ${{ steps.short-sha.outputs.sha }}
           files: ./cadmium-${{ matrix.os }}
+
+  windows_build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: benjlevesque/short-sha@v1.2
+        id: short-sha
+        with:
+          length: 6
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - run: cargo build --release --all-features
+      - run: mv target/release/cadmium.exe ./cadmium-windows.exe
+      - name: Create a release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.short-sha.outputs.sha }}
+          tag_name: ${{ steps.short-sha.outputs.sha }}
+          files: ./cadmium-windows.exe
