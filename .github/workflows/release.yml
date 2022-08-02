@@ -21,14 +21,10 @@ jobs:
         with:
           toolchain: stable
       - run: cargo build --release --all-features
-      - name: Upload binaries
-        uses: actions/upload-artifact@v2
-        with:
-          name: cadmium.${{ matrix.os }}
-          path: target/release/cadmium
+      - run: mv target/release/cadmium target/release/cadmium-${{ matrix.os }}
       - name: Create a release
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ steps.short-sha.outputs.sha }}
           tag_name: ${{ steps.short-sha.outputs.sha }}
-          files: target/release/cadmium
+          files: target/release/cadmium-${{ matrix.os }}
