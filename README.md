@@ -19,3 +19,7 @@ $ cadmium --input input.jpeg --palette onedark.palette --output output.jpg
 ![comparison1](comparison1.jpeg)
 ![comparison2](comparison3.jpeg)
 ![comparison3](comparison2.jpeg)
+
+## Contributing
+
+Pull requests are not accepted and will be closed.
